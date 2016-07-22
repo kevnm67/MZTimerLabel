@@ -4,7 +4,7 @@
 //  Created by MineS Chan on 2013-10-16
 //  Updated 2014-12-15
 
-// This code is distributed under the terms and conditions of the MIT license. 
+// This code is distributed under the terms and conditions of the MIT license.
 
 // Copyright (c) 2014 MineS Chan
 //
@@ -30,49 +30,52 @@
 
 
 /**********************************************
- MZTimerLabel TimerType Enum
- **********************************************/
-typedef enum{
+   MZTimerLabel TimerType Enum
+**********************************************/
+#ifndef NS_ENUM
+@import Foundation;
+#endif
+typedef NS_ENUM (unsigned int, MZTimerLabelType){
     MZTimerLabelTypeStopWatch,
     MZTimerLabelTypeTimer
-}MZTimerLabelType;
+};
 
 /**********************************************
- Delegate Methods
- @optional
- 
- - timerLabel:finshedCountDownTimerWithTimeWithTime:
-    ** MZTimerLabel Delegate method for finish of countdown timer
+   Delegate Methods
+   @optional
+   
+   - timerLabel:finshedCountDownTimerWithTimeWithTime:
+** MZTimerLabel Delegate method for finish of countdown timer
 
- - timerLabel:countingTo:timertype:
-    ** MZTimerLabel Delegate method for monitering the current counting progress
- 
- - timerlabel:customTextToDisplayAtTime:
-    ** MZTimerLabel Delegate method for overriding the text displaying at the time, implement this for your very custom display formmat
+   - timerLabel:countingTo:timertype:
+** MZTimerLabel Delegate method for monitering the current counting progress
+
+   - timerlabel:customTextToDisplayAtTime:
+** MZTimerLabel Delegate method for overriding the text displaying at the time, implement this for your very custom display formmat
 **********************************************/
- 
+
 @class MZTimerLabel;
 @protocol MZTimerLabelDelegate <NSObject>
 @optional
--(void)timerLabel:(MZTimerLabel*)timerLabel finshedCountDownTimerWithTime:(NSTimeInterval)countTime;
--(void)timerLabel:(MZTimerLabel*)timerLabel countingTo:(NSTimeInterval)time timertype:(MZTimerLabelType)timerType;
--(NSString*)timerLabel:(MZTimerLabel*)timerLabel customTextToDisplayAtTime:(NSTimeInterval)time;
+- (void)timerLabel:(MZTimerLabel *)timerLabel finshedCountDownTimerWithTime:(NSTimeInterval)countTime;
+- (void)timerLabel:(MZTimerLabel *)timerLabel countingTo:(NSTimeInterval)time timertype:(MZTimerLabelType)timerType;
+- (NSString *)timerLabel:(MZTimerLabel *)timerLabel customTextToDisplayAtTime:(NSTimeInterval)time;
 @end
 
 /**********************************************
- MZTimerLabel Class Defination
- **********************************************/
+   MZTimerLabel Class Defination
+**********************************************/
 
 @interface MZTimerLabel : UILabel;
 
 /*Delegate for finish of countdown timer */
-@property (nonatomic,weak) id<MZTimerLabelDelegate> delegate;
+@property (nonatomic, weak) id<MZTimerLabelDelegate> delegate;
 
 /*Time format wish to display in label*/
-@property (nonatomic,copy) NSString *timeFormat;
+@property (nonatomic, copy) NSString *timeFormat;
 
 /*Target label obejct, default self if you do not initWithLabel nor set*/
-@property (nonatomic,strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *timeLabel;
 
 /*Used for replace text in range */
 @property (nonatomic, assign) NSRange textRange;
@@ -83,13 +86,13 @@ typedef enum{
 @property (assign) MZTimerLabelType timerType;
 
 /*Is The Timer Running?*/
-@property (assign,readonly) BOOL counting;
+@property (assign, readonly) BOOL counting;
 
 /*Do you want to reset the Timer after countdown?*/
 @property (assign) BOOL resetTimerAfterFinish;
 
 /*Do you want the timer to count beyond the HH limit from 0-23 e.g. 25:23:12 (HH:mm:ss) */
-@property (assign,nonatomic) BOOL shouldCountBeyondHHLimit;
+@property (assign, nonatomic) BOOL shouldCountBeyondHHLimit;
 
 #if NS_BLOCKS_AVAILABLE
 @property (copy) void (^endedBlock)(NSTimeInterval);
@@ -97,36 +100,32 @@ typedef enum{
 
 
 /*--------Init methods to choose*/
--(id)initWithTimerType:(MZTimerLabelType)theType;
--(id)initWithLabel:(UILabel*)theLabel andTimerType:(MZTimerLabelType)theType;
--(id)initWithLabel:(UILabel*)theLabel;
+- (instancetype)initWithTimerType:(MZTimerLabelType)theType;
+- (instancetype)initWithLabel:(UILabel *)theLabel andTimerType:(MZTimerLabelType)theType;
+- (instancetype)initWithLabel:(UILabel *)theLabel;
+
 /*--------designated Initializer*/
--(id)initWithFrame:(CGRect)frame label:(UILabel*)theLabel andTimerType:(MZTimerLabelType)theType;
+- (instancetype)initWithFrame:(CGRect)frame label:(UILabel *)theLabel andTimerType:(MZTimerLabelType)theType NS_DESIGNATED_INITIALIZER;
 
 /*--------Timer control methods to use*/
--(void)start;
+- (void)start;
+
 #if NS_BLOCKS_AVAILABLE
--(void)startWithEndingBlock:(void(^)(NSTimeInterval countTime))end; //use it if you are not going to use delegate
+- (void)startWithEndingBlock:(void (^)(NSTimeInterval countTime))end; //use it if you are not going to use delegate
 #endif
--(void)pause;
--(void)reset;
+
+- (void)pause;
+- (void)reset;
 
 /*--------Setter methods*/
--(void)setCountDownTime:(NSTimeInterval)time;
--(void)setStopWatchTime:(NSTimeInterval)time;
--(void)setCountDownToDate:(NSDate*)date;
+- (void)setStopWatchTime:(NSTimeInterval)time;
+- (void)setCountDownToDate:(NSDate *)date;
 
--(void)addTimeCountedByTime:(NSTimeInterval)timeToAdd;
+- (void)addTimeCountedByTime:(NSTimeInterval)timeToAdd;
 
 /*--------Getter methods*/
-- (NSTimeInterval)getTimeCounted;
-- (NSTimeInterval)getTimeRemaining;
-- (NSTimeInterval)getCountDownTime;
-
-
-
-
+@property (NS_NONATOMIC_IOSONLY, getter = getTimeCounted, readonly) NSTimeInterval timeCounted;
+@property (NS_NONATOMIC_IOSONLY, getter = getTimeRemaining, readonly) NSTimeInterval timeRemaining;
+@property (NS_NONATOMIC_IOSONLY, getter = getCountDownTime) NSTimeInterval countDownTime;
 
 @end
-
-
