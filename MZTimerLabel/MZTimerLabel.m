@@ -351,6 +351,10 @@
         if ([_delegate respondsToSelector:@selector(timerLabel:countingTo:timertype:)]) {
             [_delegate timerLabel:self countingTo:timeDiff timertype:_timerType];
         }
+        
+        if (self.timerUpdateBlock) {
+            self.timerUpdateBlock(self, timeDiff);
+        }
     } else {
         /***MZTimerLabelTypeTimer Logic***/
         
@@ -358,6 +362,10 @@
             if ([_delegate respondsToSelector:@selector(timerLabel:countingTo:timertype:)]) {
                 NSTimeInterval timeLeft = timeUserValue - timeDiff;
                 [_delegate timerLabel:self countingTo:timeLeft timertype:_timerType];
+            }
+            
+            if (self.timerUpdateBlock) {
+                self.timerUpdateBlock(self, timeUserValue - timeDiff);
             }
             
             if (timeDiff >= timeUserValue) {

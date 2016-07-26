@@ -96,6 +96,7 @@ typedef NS_ENUM (unsigned int, MZTimerLabelType){
 
 #if NS_BLOCKS_AVAILABLE
 @property (copy) void (^endedBlock)(NSTimeInterval);
+@property (copy) void (^timerUpdateBlock)(MZTimerLabel *label, NSTimeInterval time);
 #endif
 
 
