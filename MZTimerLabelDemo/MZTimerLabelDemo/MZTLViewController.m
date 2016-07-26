@@ -72,7 +72,10 @@
      ********************************************/
     timerExample5 = [[MZTimerLabel alloc] initWithLabel:_lblTimerExample5 andTimerType:MZTimerLabelTypeTimer];
     [timerExample5 setCountDownTime:10];
-
+    
+    timerExample5.timerUpdateBlock = ^(MZTimerLabel *label, NSTimeInterval time) {
+        NSLog(@"time updated:\t%f", label.getTimeCounted);
+    };
     
     /*******************************************
      * ------Example 6-----
