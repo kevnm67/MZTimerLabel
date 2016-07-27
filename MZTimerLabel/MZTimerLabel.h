@@ -129,4 +129,6 @@ typedef NS_ENUM (unsigned int, MZTimerLabelType){
 @property (NS_NONATOMIC_IOSONLY, getter = getTimeRemaining, readonly) NSTimeInterval timeRemaining;
 @property (NS_NONATOMIC_IOSONLY, getter = getCountDownTime) NSTimeInterval countDownTime;
 
+- (CGFloat)progress;
+
 @end
