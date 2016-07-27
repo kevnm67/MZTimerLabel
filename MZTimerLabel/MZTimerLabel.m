@@ -251,6 +251,20 @@
     return 0;
 }
 
+- (CGFloat)progress
+{
+    if (_timerType == MZTimerLabelTypeTimer) {
+        float timePercentage = (self.getTimeCounted / self.getCountDownTime) * 100;
+        
+        // Calculate percent of total time completed.
+//        CGFloat progressDecimalValue = ((CGFloat)(self.getTimeCounted) / self.getCountDownTime);
+//        CGFloat progressPercentValue = fabs((1 - progressDecimalValue) * 100);
+        return nearbyintf(timePercentage);
+    }
+    
+    return 0;
+}
+
 - (void)setShouldCountBeyondHHLimit:(BOOL)shouldCountBeyondHHLimit
 {
     _shouldCountBeyondHHLimit = shouldCountBeyondHHLimit;
