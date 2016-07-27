@@ -58,6 +58,7 @@
     
     timerExample3.timerUpdateBlock = ^(MZTimerLabel *label, NSTimeInterval time) {
         NSLog(@"timerExample3 progress\t%0.1f", label.progress);
+        NSLog(@"\n progress number:\t%@", label.progressNumber);
     };
     
     /*******************************************

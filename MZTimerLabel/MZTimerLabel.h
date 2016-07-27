@@ -131,4 +131,11 @@ typedef NS_ENUM (unsigned int, MZTimerLabelType){
 
 - (CGFloat)progress;
 
+/**
+ *  Percent of time completed.
+ *
+ *  @return NSNumber Absolute value of percent time completed for Timer label type only.
+ */
+- (NSNumber *)percentProgress;
+
 @end

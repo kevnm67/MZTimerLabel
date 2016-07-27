@@ -254,15 +254,17 @@
 - (CGFloat)progress
 {
     if (_timerType == MZTimerLabelTypeTimer) {
-        float timePercentage = (self.getTimeCounted / self.getCountDownTime) * 100;
-        
-        // Calculate percent of total time completed.
-//        CGFloat progressDecimalValue = ((CGFloat)(self.getTimeCounted) / self.getCountDownTime);
-//        CGFloat progressPercentValue = fabs((1 - progressDecimalValue) * 100);
-        return nearbyintf(timePercentage);
+        return fabs((self.getTimeCounted / self.getCountDownTime) * 100);
     }
     
     return 0;
+}
+
+- (NSNumber *)percentProgress
+{
+    NSString *progress = [NSString stringWithFormat:@"%0.2f", self.progress];
+    
+    return @(progress.floatValue);
 }
 
 - (void)setShouldCountBeyondHHLimit:(BOOL)shouldCountBeyondHHLimit
