@@ -178,14 +178,14 @@
     return _timeFormat;
 }
 
-- (NSDateFormatter *)dateFormatter
-{
-    if (!_dateFormatter) {
-        _dateFormatter = [NSDateFormatter new];
-        _dateFormatter.locale = [NSLocale currentLocale];
+- (NSDateFormatter*)dateFormatter {
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_GB"];
+        [_dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         _dateFormatter.dateFormat = self.timeFormat;
     }
-    
+ 
     return _dateFormatter;
 }
 
