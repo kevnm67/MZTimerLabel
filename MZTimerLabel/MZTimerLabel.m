@@ -183,7 +183,6 @@
     if (!_dateFormatter) {
         _dateFormatter = [NSDateFormatter new];
         _dateFormatter.locale = [NSLocale currentLocale];
-        _dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
         _dateFormatter.dateFormat = self.timeFormat;
     }
     
