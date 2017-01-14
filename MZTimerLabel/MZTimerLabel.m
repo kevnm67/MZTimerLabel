@@ -180,10 +180,10 @@
 
 - (NSDateFormatter *)dateFormatter
 {
-    if (_dateFormatter == nil) {
-        _dateFormatter            = [[NSDateFormatter alloc] init];
-        _dateFormatter.locale     = [[NSLocale alloc] initWithLocaleIdentifier:@"en_GB"];
-        _dateFormatter.timeZone   = [NSTimeZone timeZoneWithName:@"GMT"];
+    if (!_dateFormatter) {
+        _dateFormatter = [NSDateFormatter new];
+        _dateFormatter.locale = [NSLocale currentLocale];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
         _dateFormatter.dateFormat = self.timeFormat;
     }
     
